@@ -1,7 +1,9 @@
+import Hero from '../components/Hero.jsx'
+
 export default function Home() {
     return (
         <>
-            <h1>I am home</h1>
+            <Hero />
         </>
     )
 } 
