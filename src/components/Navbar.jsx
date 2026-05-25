@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import pImg from "../assets/photo-1498050108023-c5249f4df085.jpg"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
 
   return (
     <nav className="bg-white shadow-md border-b border-gray-100">
@@ -50,16 +52,35 @@ export default function Navbar() {
               Contact
             </a>
 
-            <Link to="/login" >
-                <button className="bg-black text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition cursor-pointer">
-                Login
-                </button>
-            </Link>
-            <Link to="/register" >
-                <button className="bg-black text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition cursor-pointer">
-                Register
-                </button>
-            </Link>
+            {
+              isLogin ? (
+                <div className="flex items-center justify-center">
+                  <img
+                    src={pImg}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-red-500 cursor-pointer shadow-md"
+                  />
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <Link to="/login">
+                    <button className="bg-black text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition cursor-pointer">
+                      Login
+                    </button>
+                  </Link>
+
+                  <Link to="/register">
+                    <button className="bg-black text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition cursor-pointer">
+                      Register
+                    </button>
+                  </Link>
+                </div>
+
+)
+            }
+            <button onClick={() => localStorage.clear()}>Sign out</button>
+
+            
           </div>
 
           {/* Mobile Menu Button */}

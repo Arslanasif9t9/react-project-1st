@@ -1,4 +1,36 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 export default function Register () {
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [cpassword, setCpassword] = useState("");
+
+  function handleName (e) {
+    // console.log(e.target.value)
+    setName(e.target.value)
+  }
+
+  function handleSubmit() {
+
+    if (name == "" || email == "" || password == "" || cpassword == "" ) {
+      alert("Please fill complete form");
+    }
+    else if (password != cpassword) {
+      alert("Password is mismatch");
+    }
+    else {
+      localStorage.setItem('n', name);
+      localStorage.setItem('e', email);
+      localStorage.setItem('p', password);
+      localStorage.setItem('isLogin', true)
+      useNavigate('/');
+    }
+  }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-white to-cyan-100 flex items-center justify-center overflow-hidden relative px-6 py-10">
@@ -48,6 +80,8 @@ export default function Register () {
             <input
               type="text"
               placeholder="Enter your full name"
+              value={name}
+              onChange={handleName}
               className="w-full px-5 py-3 rounded-2xl bg-white/70 border border-gray-200 text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-violet-300 focus:border-transparent transition-all duration-300 shadow-sm"
             />
           </div>
@@ -61,6 +95,8 @@ export default function Register () {
             <input
               type="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={ e => setEmail(e.target.value) }
               className="w-full px-5 py-3 rounded-2xl bg-white/70 border border-gray-200 text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-300 shadow-sm"
             />
           </div>
@@ -74,6 +110,8 @@ export default function Register () {
             <input
               type="password"
               placeholder="Create a password"
+              value={password}
+              onChange={ e => setPassword(e.target.value) }
               className="w-full px-5 py-3 rounded-2xl bg-white/70 border border-gray-200 text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-cyan-300 focus:border-transparent transition-all duration-300 shadow-sm"
             />
           </div>
@@ -87,6 +125,8 @@ export default function Register () {
             <input
               type="password"
               placeholder="Confirm your password"
+              value={cpassword}
+              onChange={ e => setCpassword(e.target.value) }
               className="w-full px-5 py-3 rounded-2xl bg-white/70 border border-gray-200 text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-violet-300 focus:border-transparent transition-all duration-300 shadow-sm"
             />
           </div>
@@ -104,6 +144,7 @@ export default function Register () {
           {/* Button */}
           <button
             type="submit"
+            onClick={handleSubmit}
             className="w-full py-3 rounded-2xl bg-gradient-to-r from-violet-500 via-pink-500 to-cyan-500 text-white font-semibold tracking-wide hover:scale-105 hover:shadow-[0_10px_30px_rgba(236,72,153,0.35)] active:scale-95 transition-all duration-500"
           >
             Register
